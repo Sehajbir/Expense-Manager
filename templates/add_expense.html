@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Add Expense</title>
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<style>
+
+			@import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+
+			.sidebar{
+				height: 100%;
+				width: 260px;
+				position: fixed;
+  				z-index: 1;
+  				top: 0;
+  				left: 0;
+  				background-color: white;
+  				overflow-x: hidden;
+  				padding-top: 20px;
+  				font-family: 'Oswald', sans-serif;
+  				--moz-box-shadow: 1px 4px 8px rgba(0, 0, 0,0.5);
+  				-webkit-box-shadow: 1px 4px 8px rgba(0, 0, 0, .5);
+  				box-shadow: 1px 4px 8px rgba(0, 0, 0, .5);
+			}
+
+			.main{
+				margin-left: 80px;
+			}
+
+			.button-box{
+				width: 80%;
+				margin-left: 5%;
+				margin-top: 60px;
+			}
+			.button-box button{
+				width: 100%;
+				height: 40px;
+				margin-bottom: 12px;
+				background: transparent;
+				box-shadow: 0px 0px 0px 0px;
+				color: black;
+				border: 1px solid #ccc;
+			}
+
+			.button-box button:hover{
+				background: rgba(153, 102, 255, 0.5);
+			}
+
+
+			.file-upload {
+			  background-color: #ffffff;
+			  margin: 0 auto;
+			  padding: 20px;
+			}
+
+			.file-upload-btn {
+			  width: 60%;
+			  margin-left: 20%;
+			  color: #000000;
+			  background: #ffffff;
+			  border: 1px solid #ccc;
+			  padding: 10px;
+			  border-radius: 0px;
+			  transition: all .2s ease;
+			  outline: none;
+			  text-transform: uppercase;
+			  font-weight: 700;
+			}
+
+			.file-upload-btn:hover {
+			  background: #ffffb3;
+			  color: #000000;
+			  transition: all .2s ease;
+			  cursor: pointer;
+			}
+
+			.file-upload-btn:active {
+			  border: 0;
+			  transition: all .2s ease;
+			}
+
+			.file-upload-content {
+			  display: none;
+			  text-align: center;
+			}
+
+			.file-upload-input {
+			  position: absolute;
+			  margin: 0;
+			  padding: 0;
+			  width: 100%;
+			  height: 100%;
+			  outline: none;
+			  opacity: 0;
+			  cursor: pointer;
+			}
+
+			.image-upload-wrap {
+			  margin-top: 20px;
+			  border: 2px dashed rgba(153, 102, 255, 0.5);
+			  position: relative;
+			}
+
+			.image-dropping,
+			.image-upload-wrap:hover {
+			  background-color: rgba(153, 102, 255, 0.2);
+			  border: 2px dashed #ffffff;
+			}
+
+			.image-title-wrap {
+			  padding: 0 15px 15px 15px;
+			  color: #000;
+			}
+
+			.drag-text {
+			  text-align: center;
+			}
+
+			.drag-text h3 {
+			  font-weight: 100;
+			  text-transform: uppercase;
+			  color: #000000;
+			  font-family : 'Oswald', sans-serif;
+			  padding: 60px 0;
+			}
+
+			.file-upload-image {
+			  max-height: 200px;
+			  max-width: 200px;
+			  margin: auto;
+			  padding: 20px;
+			}
+
+			.remove-image {
+			  width: 200px;
+			  margin: 0;
+			  color: #fff;
+			  background: #cd4535;
+			  border: 1px solid #ccc;
+			  padding: 10px;
+			  transition: all .2s ease;
+			  outline: none;
+			  text-transform: uppercase;
+			  font-weight: 700;
+			}
+
+			.remove-image:hover {
+			  background: #c13b2a;
+			  color: #ffffff;
+			  transition: all .2s ease;
+			  cursor: pointer;
+			}
+
+			.remove-image:active {
+			  border: 0;
+			  transition: all .2s ease;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		
+		<div class="sidebar">
+			<h1 style="margin-left: 8px; font-size: 32px;  font-family: 'Oswald' ">Expense Manager</h1>
+			<hr style="margin-top: -2px; border: 1px solid black; width: 80%; margin-left: 0px;">
+
+			<div class="button-box">
+				<a href="{{ url_for('Dashboard') }}"><button>Dashboard</button></a>
+				<a><button>Profile</button></a>
+			</div>
+
+		</div>	
+		<div class="main">
+			<div class="container text-center" style="padding: 0px; margin-right: 0px;">
+				<h1 style="margin-left: 80px; font-family: 'Oswald', sans-serif; font-size: 48px; ">Add Expense</h1>
+				<hr>
+				<div class="row" style="padding-top: 100px;">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" style="background: ;">
+						<h3 style="font-family: 'Oswald', sans-serif;">Automatically Update</h3>
+						<p style="font-family: 'Oswald', sans-serif; font-size: 16px;">Capture an image of the reciept and let us do the work!</p>
+						<img style="margin-top: 25px;" src="https://img.icons8.com/ios-glyphs/100/000000/lasso-ocr.png">
+						<br>
+						<button style="margin-top: 15px;" data-toggle="modal" href='#upload' type="button" class="btn btn-default">Upload</button>
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center" style="background: ;">
+						<h3 style="font-family: 'Oswald', sans-serif;">Enter Manually</h3>
+						<p style="font-family: 'Oswald', sans-serif; font-size: 16px;">Enter the amount spent and update it!</p>
+						<img style="margin-top: 25px;" src="https://img.icons8.com/ios/100/000000/keyboard.png">
+						<br>
+						<button style="margin-top: 15px;" type="button" data-toggle="modal" href='#update' class="btn btn-default">Update</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="upload">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form action="{{ url_for('evaluate') }}" method="POST" enctype = "multipart/form-data">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+						<div class="file-upload">
+						  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+						  <div class="image-upload-wrap">
+						    <input name="file" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+						    <div class="drag-text">
+						      <h3>Drag and drop a file or select add Image</h3>
+						    </div>
+						  </div>
+						  <div class="file-upload-content">
+						    <img class="file-upload-image" src="#" alt="your image" />
+						    <div class="image-title-wrap">
+						      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+						    </div>	
+  						</div>
+  						<div class="container" style="width: 100%;">
+  							<button style="margin-left: 20%; margin-top: 20px; width: 60%;" type="submit" class="btn btn-default">Submit</button>
+  						</div>
+
+					</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="update">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 style="font-family: 'Oswald', sans-serif;">Update Your Expense</h3>
+						<form method="POST" action="{{ url_for('finalEval') }}">
+							<input style="margin-top: 25px;" type="text" name="total" id="inputTotal" class="form-control" required="required" placeholder="Enter the value">
+							<button style="margin-top: 25px;" type="submit" class="btn btn-default">Update</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="//code.jquery.com/jquery.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+ 		<script>
+ 			function readURL(input) {
+			  if (input.files && input.files[0]) {
+
+			    var reader = new FileReader();
+
+			    reader.onload = function(e) {
+			      $('.image-upload-wrap').hide();
+
+			      $('.file-upload-image').attr('src', e.target.result);
+			      $('.file-upload-content').show();
+
+			      $('.image-title').html(input.files[0].name);
+			    };
+
+			    reader.readAsDataURL(input.files[0]);
+
+			  } else {
+			    removeUpload();
+			  }
+			}
+
+			function removeUpload() {
+			  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+			  $('.file-upload-content').hide();
+			  $('.image-upload-wrap').show();
+			}
+			$('.image-upload-wrap').bind('dragover', function () {
+					$('.image-upload-wrap').addClass('image-dropping');
+				});
+				$('.image-upload-wrap').bind('dragleave', function () {
+					$('.image-upload-wrap').removeClass('image-dropping');
+			});
+ 		</script>
+	</body>
+</html>
